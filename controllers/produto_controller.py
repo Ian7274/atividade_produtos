@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from database import conectar_banco
 
-produto = Blueprint("estoque", __name__)
+produto = Blueprint("produto_bp", __name__)
 
 @produto.route("/cadastrar", methods=["POST"])
 def cadastrar():
