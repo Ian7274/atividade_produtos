@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Produtos</title>
+</head>
+<body>
+    <main>
+        <h1>Produtos</h1>
+        {% if mensagem %}
+            <p role="status">{{ mensagem }}</p>
+        {% endif %}
+        <p><a href="{{ url_for('estoque.cadastrar') }}">Cadastrar produto</a></p>
+
+        {% if produtos %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produto in produtos %}
+                        <tr>
+                            <td>{{ produto.nome }}</td>
+                            <td>{{ produto.descricao or "-" }}</td>
+                            <td>R$ {{ "%.2f"|format(produto.preco) }}</td>
+                            <td>{{ produto.quantidade }}</td>
+                            <td>{{ produto.categoria or "-" }}</td>
+                            <td>
+                                <form action="{{ url_for('estoque.apagar') }}" method="post">
+                                    <input type="hidden" name="id" value="{{ produto.id }}">
+                                    <button type="submit" aria-label="Excluir {{ produto.nome }}">
+                                        🗑️ Excluir
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhum produto cadastrado.</p>
+        {% endif %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastrar produto</title>
+</head>
+<body>
+    <main>
+        <h1>Cadastrar produto</h1>
+        {% if erro %}
+            <p role="alert">{{ erro }}</p>
+        {% endif %}
+        <form action="{{ url_for('estoque.cadastrar') }}" method="post">
+            <p>
+                <label for="nome">Nome</label><br>
+                <input id="nome" name="nome" type="text" maxlength="100"
+                       value="{{ valores.get('nome', '') }}" required>
+            </p>
+            <p>
+                <label for="descricao">Descrição</label><br>
+                <textarea id="descricao" name="descricao" rows="4">{{ valores.get('descricao', '') }}</textarea>
+            </p>
+            <p>
+                <label for="preco">Preço</label><br>
+                <input id="preco" name="preco" type="number" min="0" step="0.01"
+                       value="{{ valores.get('preco', '') }}" required>
+            </p>
+            <p>
+                <label for="quantidade">Quantidade</label><br>
+                <input id="quantidade" name="quantidade" type="number" min="0" step="1"
+                       value="{{ valores.get('quantidade', '') }}" required>
+            </p>
+            <p>
+                <label for="categoria">Categoria</label><br>
+                <input id="categoria" name="categoria" type="text" maxlength="50"
+                       value="{{ valores.get('categoria', '') }}">
+            </p>
+            <button type="submit">Cadastrar produto</button>
+        </form>
+        <p><a href="{{ url_for('estoque.listar') }}">Ver produtos</a></p>
+    </main>
+</body>
+</html>
